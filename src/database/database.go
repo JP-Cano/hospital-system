@@ -3,6 +3,7 @@ package database
 import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"hospital-system/src/entities"
 	"log"
 )
 
@@ -29,4 +30,19 @@ func Close(db *gorm.DB) {
 	}
 	log.Println("Database connection closed successfully")
 	return
+}
+
+func Migrate(db *gorm.DB) {
+	createUUIDExtension(db)
+	err := db.AutoMigrate(entities.Patient{}, entities.Doctor{}, entities.MedicalAppointment{}, entities.MedicalRecord{})
+	if err != nil {
+		log.Printf("Error migrating database: %v", err)
+		return
+	}
+}
+
+func createUUIDExtension(db *gorm.DB) {
+	if err := db.Exec(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`).Error; err != nil {
+		log.Fatalf("Failed to create uuid extension: %v", err)
+	}
 }

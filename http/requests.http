@@ -1,0 +1,40 @@
+# Patient
+
+GET https://hospital-management-424616.ue.r.appspot.com/patients
+###
+
+GET https://hospital-management-424616.ue.r.appspot.com/patients/search?name=jane&phone=98&email=jane
+###
+
+
+# Medical Record
+
+GET https://hospital-management-424616.ue.r.appspot.com/medical-record/doctor/434a4cbe-53a3-4945-9a0a-d1a05d02cef8/report?start_date=2024-06-02&end_date=2024-06-05
+###
+
+
+PATCH https://hospital-management-424616.ue.r.appspot.com/medical-record/patient/fb4b6625-439a-4131-a206-9e61389b0cb0
+Content-Type: application/json
+
+{
+  "diagnosis": "Acute encephalitis"
+}
+###
+
+
+
+# Medical Appointment
+
+GET https://hospital-management-424616.ue.r.appspot.com/medical-appointments/doctor/c8e10804-bbce-49f6-a73f-ce80629c2b23
+###
+
+
+POST https://hospital-management-424616.ue.r.appspot.com/medical-appointments
+Content-Type: application/json
+
+{
+  "patient_id": "aa1758e0-dde6-4071-b18a-022036762968",
+  "doctor_id": "c8e10804-bbce-49f6-a73f-ce80629c2b23",
+  "date_time": "2024-10-03 13:00:00",
+  "reason": "Urgent appointment"
+}

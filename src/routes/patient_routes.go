@@ -1,12 +1,14 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"hospital-system/src/controllers"
+)
 
-func Patient(router *gin.Engine) {
-	patientRoutes := router.Group("/patient")
+func Patient(router *gin.Engine, patientController *controllers.PatientController) {
+	patientRoutes := router.Group("/patients")
 	{
-		patientRoutes.GET("/")
-		patientRoutes.POST("/")
-		patientRoutes.GET("/:id")
+		patientRoutes.GET("/", patientController.GetPatients)
+		patientRoutes.GET("/search", patientController.SearchPatient)
 	}
 }

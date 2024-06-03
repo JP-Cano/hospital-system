@@ -12,10 +12,11 @@ import (
 func main() {
 	dsn := config.DatabaseUrlBuilder()
 	db, err := database.New(dsn)
+	defer database.Close(db)
+	database.Migrate(db)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer database.Close(db)
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
